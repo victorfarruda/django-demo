@@ -9,6 +9,6 @@ COPY Pipfile /app/
 COPY Pipfile.lock /app/
 
 RUN pip install pipenv
-RUN pipenv sync
+RUN pipenv install --system --deploy --ignore-pipfile
 
 COPY . /app/
