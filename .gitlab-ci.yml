@@ -4,6 +4,7 @@ before_script:
   - python --version
   - pip install pipenv
   - pipenv sync --dev
+  - cp contrib/env-sample .env
 
 stages:
   - Static Analysis
