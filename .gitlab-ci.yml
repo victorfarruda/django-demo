@@ -17,4 +17,7 @@ flake8:
 pytest:
   stage: Test
   script:
-    - pipenv run pytest
+    - pipenv run pytest --cov=app
+
+after_script:
+  - pipenv run codecov
