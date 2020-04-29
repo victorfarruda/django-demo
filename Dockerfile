@@ -4,6 +4,7 @@ ENV PYTHONUNBUFFERED 1
 
 RUN mkdir /app
 WORKDIR /app
+RUN mkdir .venv
 
 COPY Pipfile /app/
 COPY Pipfile.lock /app/
