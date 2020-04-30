@@ -1,10 +1,10 @@
 FROM python:3.8
 LABEL maintainer 'Victor'
 ENV PYTHONUNBUFFERED 1
+ENV PIPENV_VENV_IN_PROJECT True
 
 RUN mkdir /app
 WORKDIR /app
-RUN mkdir .venv
 
 COPY Pipfile /app/
 COPY Pipfile.lock /app/

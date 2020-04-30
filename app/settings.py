@@ -77,6 +77,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
+INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv(), default='0.0.0.0')
+
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : lambda request: True,
+}
+
+if DEBUG:
+    INSTALLED_APPS.append('debug_toolbar')
+    MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
