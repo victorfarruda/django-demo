@@ -88,6 +88,10 @@ DEBUG_TOOLBAR_CONFIG = {
 if DEBUG:
     INSTALLED_APPS.append('debug_toolbar')
     MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
