@@ -23,7 +23,7 @@ jobs:
 #         postgresql db: 'testdb'  # This optional environment variable can be used to define a different name for the default database that is created when the image is first started. If it is not specified, then the value of postgresql user will be used.
     - uses: actions/checkout@v1
     - name: Install dependencies  
-      run: |
+      run: |  
         pip install pipenv
         pipenv install --system --deploy --ignore-pipfile --dev
         cp contrib/env-sample .env
