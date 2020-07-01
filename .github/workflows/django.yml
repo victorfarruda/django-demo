@@ -7,10 +7,8 @@ on:
   pull_request:
     branches:
     - master
-
 jobs:
   build:
-
     runs-on: self-hosted
     strategy:
       max-parallel: 4
@@ -25,6 +23,7 @@ jobs:
     - name: Install dependencies
       run: |
         pipenv sync --dev
+        cp env-sample .env
     - name: Lint with flake8
       run: |
         pipenv run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
