@@ -2,10 +2,10 @@ name: Django CI
 
 on:
   push:
-    branches: 
+    branches:
     - master
   pull_request:
-    branches: 
+    branches:
     - master
 
 jobs:
@@ -14,23 +14,41 @@ jobs:
     runs-on: self-hosted
     strategy:
       max-parallel: 4
+    services:
+    
+      postgres:
+        # Docker Hub image
+        image: postgres
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+            # Maps tcp port 5432 on service container to the host
+          - 5432:5432      
     steps:
-    - uses: harmon758/postgresql-action@v1
-      with:
-        postgresql version: '11'  # See https://https://hub.docker.com/r/mdillon/postgis for available versions, if it is not specified, use the default value 'latest'
-        postgresql password: postgres   # This environment variable sets the superuser password for PostgreSQL, maybe string or secrets, the default superuser is defined by the input environment variable: postgresql user.
-        postgresql user: 'postgres'  # This optional environment variable is used in conjunction with postgresql password to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of 'postgres' will be used.
-        postgresql db: 'testdb'  # This optional environment variable can be used to define a different name for the default database that is created when the image is first started. If it is not specified, then the value of postgresql user will be used.
+#     - uses: harmon758/postgresql-action@v1
+#       with:
+#         postgresql version: '11'  # See https://https://hub.docker.com/r/mdillon/postgis for available versions, if it is not specified, use the default value 'latest'
+#         postgresql password: postgres   # This environment variable sets the superuser password for PostgreSQL, maybe string or secrets, the default superuser is defined by the input environment variable: postgresql user.
+#         postgresql user: 'postgres'  # This optional environment variable is used in conjunction with postgresql password to set a user and its password. This variable will create the specified user with superuser power and a database with the same name. If it is not specified, then the default user of 'postgres' will be used.
+#         postgresql db: 'testdb'  # This optional environment variable can be used to define a different name for the default database that is created when the image is first started. If it is not specified, then the value of postgresql user will be used.
     - uses: actions/checkout@v1
-    - name: Install dependencies  
-      run: |  
+    - name: Install dependencies
+      run: |
         pipenv sync --dev
         cp contrib/env-sample .env
     - name: Lint with flake8
       run: |
         pipenv run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Run migrations
-      run: python manage.py migrate        
+      run: python manage.py migrate
     - name: Test with pytest
       run: |
         pip install pytest
