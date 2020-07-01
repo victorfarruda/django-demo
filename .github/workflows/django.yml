@@ -15,6 +15,11 @@ jobs:
     strategy:
       max-parallel: 4
     steps:
+    - name: apt-get
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install -y libpq-dev postgresql-client
+
 #     - uses: harmon758/postgresql-action@v1
 #       with:
 #         postgresql version: '11'  # See https://https://hub.docker.com/r/mdillon/postgis for available versions, if it is not specified, use the default value 'latest'
