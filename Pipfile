@@ -4,19 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+codecov = "*"
 flake8 = "*"
 pytest-cov = "*"
-codecov = "*"
 
 [packages]
+dj-database-url = "*"
 django = "*"
+django-debug-toolbar = "*"
 gunicorn = "*"
+psycopg2-binary = "*"
 pytest-django = "*"
 python-decouple = "*"
-dj-database-url = "*"
-psycopg2-binary = "*"
-django-debug-toolbar = "*"
-sentry-sdk = "==0.14.3"
+sentry-sdk = "==2.7.1"
 
 [requires]
 python_version = "3.8"
